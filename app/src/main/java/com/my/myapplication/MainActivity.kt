@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import kotlin.reflect.KProperty
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,10 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val value = MyLazy { SomeClass() }
+        val value by MyLazy { SomeClass() }
         findViewById<View>(R.id.text).setOnClickListener {
-            value.getValue()
+            Log.d("EE", "click on value = $value")
         }
     }
 }
@@ -25,7 +25,8 @@ class MyLazy<T>(initializer: () -> T) {
     private var isInit = false
     private var value: T? = null
 
-   fun getValue(): T {
+    @Suppress("UNCHECKED_CAST")
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         return if (isInit) {
             value as T
         } else {
