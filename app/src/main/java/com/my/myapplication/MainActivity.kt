@@ -4,16 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.my.myapplication.databinding.ActivityMainBinding
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
+    private val binding by viewBinding(ActivityMainBinding::inflate, this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val value by MyLazy { SomeClass() }
-        findViewById<View>(R.id.text).setOnClickListener {
+        binding.text.setOnClickListener {
             Log.d("EE", "click on value = $value")
         }
 
