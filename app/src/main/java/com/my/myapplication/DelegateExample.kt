@@ -1,5 +1,6 @@
 package com.my.myapplication
 
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 class DelegateExample {
@@ -11,3 +12,10 @@ class DelegateExample {
         println("$value has been assigned to '${property.name}' in $thisRef.")
     }
 }
+
+fun delegatedPropertyExample(): ReadWriteProperty<Any, String> =
+    object : ReadWriteProperty<Any, String> {
+        override fun getValue(thisRef: Any, property: KProperty<*>) = "dss"
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: String) = Unit
+    }
