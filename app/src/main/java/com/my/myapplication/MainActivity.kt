@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.text).setOnClickListener {
             Log.d("EE", "click on value = $value")
         }
+
+        val sellPhone = SellPhone()
+        sellPhone.makeCall()
+        sellPhone.makePhoto()
     }
 }
 
