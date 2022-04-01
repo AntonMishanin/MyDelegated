@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,19 @@ class MainActivity : AppCompatActivity() {
         val sellPhone = SellPhone()
         sellPhone.makeCall()
         sellPhone.makePhoto()
+
+        var messageAfter by Delegates.observable("value") { p, old, new ->
+            Log.d("EE", "old = $old new = $new")
+        }
+
+        var messageBefore by Delegates.vetoable("value") { p, old, new ->
+            Log.d("EE", "old = $old new = $new")
+            false
+        }
+
+        findViewById<View>(R.id.send_message).setOnClickListener {
+            messageBefore = "sdsd"
+        }
     }
 }
 
